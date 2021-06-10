@@ -18,8 +18,8 @@ import jwt.JwtUserDetailsService;
 
 
 import jwt.JwtTokenUtil;
-import com.javainuse.model.JwtRequest;
-import com.javainuse.model.JwtResponse;
+import jwt.JwtRequest;
+import jwt.JwtResponse;
 
 @RestController
 @CrossOrigin
