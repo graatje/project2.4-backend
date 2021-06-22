@@ -4,8 +4,6 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
- ### private key for jwt ###
-private.pem 
 
 ### STS ###
 .apt_generated
