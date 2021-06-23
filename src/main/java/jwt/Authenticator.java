@@ -9,6 +9,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import users.User;
+import users.UserRepository;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletResponse;
@@ -24,8 +26,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @SpringBootApplication
 @CrossOrigin
 public class Authenticator {
-    String SECRETKEYFILEPATH;
-    public Authenticator(){
+    private String SECRETKEYFILEPATH;
+    private UserRepository userRepository;
+    public Authenticator(UserRepository userRepository){
+        this.userRepository = userRepository;
         this.SECRETKEYFILEPATH = "private.pem";
     }
     @RequestMapping(value = "/authenticate", method = POST)
@@ -75,7 +79,11 @@ public class Authenticator {
 
     private boolean checkValid(String username, String password){
         // @todo verify username/password combination.
-        return true;
+        User user =  this.userRepository.findByName(username);
+        if(user != null){
+            return user.getPassword().equals(password);
+        }
+        return false;
     }
 
     /**
@@ -142,7 +150,7 @@ public class Authenticator {
         return null;
     }
     public static void main(String[] args){
-        Authenticator auth = new Authenticator();
-        auth.getSecretKey();
+       // Authenticator auth = new Authenticator();
+        //auth.getSecretKey();
     }
 }
