@@ -24,9 +24,4 @@ public class Application {
         };
     }
 
-//    @Bean
-//    public BCryptPasswordEncoder bCryptPasswordEncoder(){
-//        return new BCryptPasswordEncoder();
-//    }
-
 }

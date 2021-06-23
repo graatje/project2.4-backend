@@ -5,7 +5,6 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,8 +55,7 @@ public class ForumController {
             thread.setReplies(newThread.getReplies());
             thread.setContent(newThread.getContent());
             return repository.save(thread);
-        })
-                .orElseGet(() -> {
+        }).orElseGet(() -> {
                     newThread.setId(id);
                     return repository.save(newThread);
                 }));
