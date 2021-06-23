@@ -1,11 +1,14 @@
 package Forum;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class ForumPost {
+public class ForumPost implements Serializable {
     private @Id @GeneratedValue Long id;
     private String author;
     private String content;

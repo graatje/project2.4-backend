@@ -3,14 +3,9 @@ package Forum;
 import Exceptions.ThreadNotFoundException;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +22,7 @@ public class ForumController {
         this.assembler = assembler;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("studiekamer/prikbord")
     CollectionModel<EntityModel<ForumThread>> getAllThreads() {
         List<EntityModel<ForumThread>> threads = repository.findAll().stream()
@@ -37,12 +33,13 @@ public class ForumController {
                 linkTo(methodOn(ForumController.class).getAllThreads()).withSelfRel());
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("studiekamer/prikbord")
     ForumThread newThread(@RequestBody ForumThread thread) {
         return repository.save(thread);
     }
 
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("studiekamer/prikbord/{id}")
     EntityModel<ForumThread> getThread(@PathVariable Long id) {
         ForumThread thread = repository.findById(id).orElseThrow(() -> new ThreadNotFoundException(id));
@@ -50,19 +47,23 @@ public class ForumController {
         return assembler.toModel(thread);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("studiekamer/prikbord/{id}")
-    ForumThread replaceThread(@RequestBody ForumThread newThread, @PathVariable Long id) {
-        return repository.findById(id).map(thread -> {
+    EntityModel<ForumThread> replaceThread( @PathVariable Long id, @RequestBody ForumThread newThread) {
+        return assembler.toModel(repository.findById(id).map(thread -> {
             thread.setAuthor(newThread.getAuthor());
             thread.setTitle(newThread.getTitle());
+            thread.setReplies(newThread.getReplies());
+            thread.setContent(newThread.getContent());
             return repository.save(thread);
         })
                 .orElseGet(() -> {
                     newThread.setId(id);
                     return repository.save(newThread);
-                });
+                }));
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("studiekamer/prikbord/{id}")
     void deleteThread(@PathVariable Long id) {
         repository.deleteById(id);
