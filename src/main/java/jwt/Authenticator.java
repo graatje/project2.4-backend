@@ -23,7 +23,6 @@ import java.util.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-@SpringBootApplication
 @CrossOrigin
 public class Authenticator {
     private String SECRETKEYFILEPATH;
@@ -32,7 +31,15 @@ public class Authenticator {
         this.userRepository = userRepository;
         this.SECRETKEYFILEPATH = "private.pem";
     }
-    @RequestMapping(value = "/authenticate", method = POST)
+
+    @RequestMapping(value = "/api")
+    public ResponseEntity<Object> ok(){
+        JSONObject jsonResponse = new JSONObject();
+        jsonResponse.put("message", "ok");
+        return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/api/login")
     public ResponseEntity<Object> login(HttpServletResponse response, @RequestParam String name, @RequestParam String password) throws IOException {
         JSONObject jsonResponse = new JSONObject();
         HttpStatus httpStatus;
@@ -50,7 +57,7 @@ public class Authenticator {
         return new ResponseEntity<>(jsonResponse, httpStatus);
     }
 
-    @RequestMapping(value = "/secret", method = POST)
+    @PostMapping(value = "/api/secret")
     public ResponseEntity<Object> loggedin(@RequestHeader HttpHeaders headers){
         String token = "";
         JSONObject jsonResponse = new JSONObject();
@@ -148,9 +155,5 @@ public class Authenticator {
             e.printStackTrace();
         }
         return null;
-    }
-    public static void main(String[] args){
-       // Authenticator auth = new Authenticator();
-        //auth.getSecretKey();
     }
 }
