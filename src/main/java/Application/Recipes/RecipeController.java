@@ -1,6 +1,6 @@
-package Recipes;
+package Application.Recipes;
 
-import Exceptions.RecipeNotFoundException;
+import Application.Exceptions.RecipeNotFoundException;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;

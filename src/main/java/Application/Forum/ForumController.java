@@ -1,6 +1,6 @@
-package Forum;
+package Application.Forum;
 
-import Exceptions.ThreadNotFoundException;
+import Application.Exceptions.ThreadNotFoundException;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;

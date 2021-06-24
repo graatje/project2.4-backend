@@ -1,6 +1,4 @@
-package Forum;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+package Application.Forum;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package Recipes;
+package Application.Recipes;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +20,8 @@ public class Recipe {
     private String ingredienten;
     @Lob
     private String bereidingswijze;
+
+    public Recipe(){}
 
     public Recipe(Integer bereidingstijd, Integer aantalPersonen,
                   Integer thumbsUp, Integer thumbsdown,

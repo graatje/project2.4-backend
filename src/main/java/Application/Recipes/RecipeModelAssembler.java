@@ -1,4 +1,4 @@
-package Recipes;
+package Application.Recipes;
 
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;

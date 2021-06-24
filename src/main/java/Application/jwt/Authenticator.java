@@ -1,16 +1,15 @@
-package jwt;
+package Application.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.DefaultJwtSignatureValidator;
 import net.minidev.json.JSONObject;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import users.User;
-import users.UserRepository;
+import Application.users.User;
+import Application.users.UserRepository;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +22,6 @@ import java.util.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-@SpringBootApplication
 @CrossOrigin
 public class Authenticator {
     private String SECRETKEYFILEPATH;
@@ -48,6 +46,13 @@ public class Authenticator {
             httpStatus = HttpStatus.OK;
         }
         return new ResponseEntity<>(jsonResponse, httpStatus);
+    }
+
+    @RequestMapping(value = "/api")
+    public ResponseEntity<Object> ok(){
+        JSONObject jsonResponse = new JSONObject();
+        jsonResponse.put("message", "ok");
+        return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/secret", method = POST)
@@ -79,10 +84,10 @@ public class Authenticator {
 
     private boolean checkValid(String username, String password){
         // @todo verify username/password combination.
-        User user =  this.userRepository.findByName(username);
-        if(user != null){
-            return user.getPassword().equals(password);
-        }
+//        User user =  this.userRepository.findByName(username);
+//        if(user != null){
+//            return user.getPassword().equals(password);
+//        }
         return false;
     }
 

@@ -1,4 +1,4 @@
-package Forum;
+package Application.Forum;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

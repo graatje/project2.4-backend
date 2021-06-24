@@ -1,4 +1,4 @@
-package Exceptions;
+package Application.Exceptions;
 
 public class ThreadNotFoundException extends RuntimeException{
     public ThreadNotFoundException(Long id){
