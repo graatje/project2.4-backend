@@ -30,7 +30,8 @@ public class Authenticator {
         this.userRepository = userRepository;
         this.SECRETKEYFILEPATH = "private.pem";
     }
-    @RequestMapping(value = "/authenticate", method = POST)
+
+    @PostMapping(value = "/api/login")
     public ResponseEntity<Object> login(HttpServletResponse response, @RequestParam String name, @RequestParam String password) throws IOException {
         JSONObject jsonResponse = new JSONObject();
         HttpStatus httpStatus;
@@ -55,7 +56,7 @@ public class Authenticator {
         return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/secret", method = POST)
+    @PostMapping(value = "/api/secret")
     public ResponseEntity<Object> loggedin(@RequestHeader HttpHeaders headers){
         String token = "";
         JSONObject jsonResponse = new JSONObject();
