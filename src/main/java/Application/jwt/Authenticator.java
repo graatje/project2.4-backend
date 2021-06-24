@@ -49,7 +49,7 @@ public class Authenticator {
         return new ResponseEntity<>(jsonResponse, httpStatus);
     }
 
-    @RequestMapping(value = "/api")
+    @GetMapping(value = "/api")
     public ResponseEntity<Object> ok(){
         JSONObject jsonResponse = new JSONObject();
         jsonResponse.put("message", "ok");
@@ -154,9 +154,5 @@ public class Authenticator {
             e.printStackTrace();
         }
         return null;
-    }
-    public static void main(String[] args){
-       // Authenticator auth = new Authenticator();
-        //auth.getSecretKey();
     }
 }
