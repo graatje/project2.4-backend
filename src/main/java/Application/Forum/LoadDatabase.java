@@ -2,6 +2,8 @@ package Application.Forum;
 
 import Application.Recipes.Recipe;
 import Application.Recipes.RecipeRepository;
+import Application.users.User;
+import Application.users.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -27,6 +29,13 @@ public class LoadDatabase {
         return args -> {
             log.info("Preloading " + reciperepo.save(new Recipe(45, 2, 5, 1, "Beetje van dit, beetje van dat", "Gewoon lekker koken man, niet zo moeilijk doen.", "Gewoon wat te eten")));
             log.info("Preloading " + reciperepo.save(new Recipe(2, 1, 9001, 0, "2 sneeën brood, 1 plak kaas, 1 plak ham, klodder mayonaise.", "Doe de ham en kaas tussen de sneeën brood.\nStop de boterham in het tosti-ijzer tot het goudbruin gekleurd is.\nServeer met een klodder mayonaise.", "Ham-kaas tosti")));
+        };
+    }
+
+    @Bean
+    public CommandLineRunner initUserDatabase(UserRepository repo){
+        return args -> {
+          log.info ("Preloading: " + repo.save(new User("test", "test", "test@email.com")));
         };
     }
 }

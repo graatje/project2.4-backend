@@ -85,10 +85,10 @@ public class Authenticator {
 
     private boolean checkValid(String username, String password){
         // @todo verify username/password combination.
-//        User user =  this.userRepository.findByName(username);
-//        if(user != null){
-//            return user.getPassword().equals(password);
-//        }
+        User user =  this.userRepository.findByName(username);
+        if(user != null){
+            return user.getPassword().equals(password);
+        }
         return false;
     }
 
