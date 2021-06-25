@@ -110,6 +110,9 @@ public class Authenticator {
         return 86400000L * days + currentTime;
     }
     private String generateToken(String name, long expiresintimestamp) throws UnsupportedEncodingException {
+        if(this.isEmail(name)){
+            name = this.userRepository.findByEmail(name).getName();
+        }
         String token = Jwts.builder()
                 .setExpiration(new Date(expiresintimestamp))
                 .claim("name", name)

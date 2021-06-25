@@ -2,6 +2,8 @@ package Application.Forum;
 
 import Application.Recipes.Recipe;
 import Application.Recipes.RecipeRepository;
+import Application.chat.ChatMessage;
+import Application.chat.ChatRepository;
 import Application.users.User;
 import Application.users.UserRepository;
 import org.slf4j.Logger;
@@ -36,6 +38,15 @@ public class LoadDatabase {
     public CommandLineRunner initUserDatabase(UserRepository repo){
         return args -> {
           log.info ("Preloading: " + repo.save(new User("test", "test", "test@email.com")));
+        };
+    }
+
+    @Bean
+    public CommandLineRunner initChatDatabase(ChatRepository chatrepo){
+        return args -> {
+            log.info("Preloading " + chatrepo.save(new ChatMessage(1, 1, "hello world", 100000)));
+            log.info("Preloading " + chatrepo.save(new ChatMessage(1, 1, "hello worldd", 100000)));
+
         };
     }
 }
