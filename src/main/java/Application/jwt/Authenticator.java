@@ -18,6 +18,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -85,7 +87,13 @@ public class Authenticator {
 
     private boolean checkValid(String username, String password){
         // @todo verify username/password combination.
-        User user =  this.userRepository.findByName(username);
+        User user;
+        if(this.isEmail(username)){
+            user = this.userRepository.findByEmail(username);
+        }
+        else {
+            user = this.userRepository.findByName(username);
+        }
         if(user != null){
             return user.getPassword().equals(password);
         }
@@ -154,5 +162,16 @@ public class Authenticator {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * @param text
+     * @return boolean, true if the given text is an email
+     */
+    private boolean isEmail(String text){
+        String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(text);
+        return matcher.matches();
     }
 }
