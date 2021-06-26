@@ -23,7 +23,6 @@ public class RecipeController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("keuken/recepten")
     CollectionModel<EntityModel<Recipe>> getAllRecipes(){
-        System.out.println("Method called");
         List<EntityModel<Recipe>> recipes = repository.findAll().stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());

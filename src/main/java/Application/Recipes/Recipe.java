@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import java.util.ArrayList;
 
 @Entity
 public class Recipe {
@@ -13,8 +14,12 @@ public class Recipe {
     private String naam;
     private Integer bereidingstijd;
     private Integer aantalPersonen;
-    private Integer thumbsUp;
-    private Integer thumbsDown;
+
+    @Lob
+    private ArrayList<String> thumbsUp;
+
+    @Lob
+    private ArrayList<String> thumbsDown;
 
     @Lob
     private String ingredienten;
@@ -24,7 +29,7 @@ public class Recipe {
     public Recipe(){}
 
     public Recipe(Integer bereidingstijd, Integer aantalPersonen,
-                  Integer thumbsUp, Integer thumbsdown,
+                  ArrayList<String> thumbsUp, ArrayList<String> thumbsdown,
                   String ingredienten, String bereidingswijze, String naam){
         this.bereidingstijd = bereidingstijd;
         this.bereidingswijze = bereidingswijze;
@@ -59,19 +64,19 @@ public class Recipe {
         this.aantalPersonen = aantalPersonen;
     }
 
-    public Integer getThumbsUp() {
+    public ArrayList<String> getThumbsUp() {
         return thumbsUp;
     }
 
-    public void setThumbsUp(Integer thumbsUp) {
+    public void setThumbsUp(ArrayList<String> thumbsUp) {
         this.thumbsUp = thumbsUp;
     }
 
-    public Integer getThumbsDown() {
+    public ArrayList<String> getThumbsDown() {
         return thumbsDown;
     }
 
-    public void setThumbsDown(Integer thumbsDown) {
+    public void setThumbsDown(ArrayList<String> thumbsDown) {
         this.thumbsDown = thumbsDown;
     }
 
@@ -89,5 +94,13 @@ public class Recipe {
 
     public void setBereidingswijze(String bereidingswijze) {
         this.bereidingswijze = bereidingswijze;
+    }
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public void setNaam(String naam) {
+        this.naam = naam;
     }
 }
