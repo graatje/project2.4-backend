@@ -6,17 +6,28 @@ import javax.persistence.Id;
 
 @Entity
 public class ChatMessage {
+    public ChatMessage(long senderid, int chatroomid, String message, long timestamp){
+        this.senderid = senderid;
+        this.chatroomid = chatroomid;
+        this.message = message;
+        this.timestamp = timestamp;
+    }
+    public ChatMessage(){}
     private @Id @GeneratedValue Long messageid;
     private int chatroomid;
-    private int senderid;
+    private long senderid;
     private String message;
     private long timestamp;
 
-    public int getSenderid() {
+    public long getMessageId(){
+        return this.messageid;
+    }
+
+    public long getSenderid() {
         return senderid;
     }
 
-    public void setSenderid(int senderid) {
+    public void setSenderid(long senderid) {
         this.senderid = senderid;
     }
 
