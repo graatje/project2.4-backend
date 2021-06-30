@@ -38,6 +38,7 @@ public class UserController {
             return new ResponseEntity(jsonResponse, HttpStatus.OK);
         }
     }
+
     private boolean isEmail(String text){
         String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
         Pattern pattern = Pattern.compile(regex);

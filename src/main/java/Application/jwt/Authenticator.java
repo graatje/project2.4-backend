@@ -57,6 +57,17 @@ public class Authenticator {
         jsonResponse.put("message", "ok");
         return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
     }
+    @PostMapping(value = "/api/isvalidtoken")
+    public ResponseEntity checkValidToken(@RequestParam("token") String token){
+        JSONObject jsonResponse = new JSONObject();
+        if(isValidToken(token)){
+            jsonResponse.put("message", "ok");
+            return new ResponseEntity(jsonResponse, HttpStatus.OK);
+        }else{
+            jsonResponse.put("message", "invalid token");
+            return new ResponseEntity(jsonResponse, HttpStatus.FORBIDDEN);
+        }
+    }
 
     @PostMapping(value = "/api/secret")
     public ResponseEntity<Object> loggedin(@RequestHeader HttpHeaders headers){
