@@ -109,6 +109,25 @@ public class Authenticator {
         long currentTime = System.currentTimeMillis();  // current time in milliseconds.
         return 86400000L * days + currentTime;
     }
+
+    public String getNameFromJWT(String token){
+        if(isValidToken(token)){
+            Base64.Decoder decoder = Base64.getDecoder();
+            String[] chunks = token.split("\\.");
+            String payload = new String(decoder.decode(chunks[1]));
+            System.out.println(payload);
+            Pattern pattern = Pattern.compile("(?<=\"name\":\")([A-Za-z0-9]+)(?=\")", Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(payload);
+            if(matcher.find()) {
+                return matcher.group();
+            }else{
+                return "";
+            }
+        }
+        System.out.println("it aint even a valid token..");
+        return "";
+    }
+
     private String generateToken(String name, long expiresintimestamp) throws UnsupportedEncodingException {
         if(this.isEmail(name)){
             name = this.userRepository.findByEmail(name).getName();
