@@ -38,7 +38,7 @@ public class Authenticator {
         JSONObject jsonResponse = new JSONObject();
         HttpStatus httpStatus;
         if(!checkValid(name, password)){
-            jsonResponse.put("message", "invalid username/password combination.");
+            jsonResponse.put("message", "ongeldige gebruikersnaam/wachtwoord combinatie!");
             httpStatus = HttpStatus.UNAUTHORIZED;
         }
         else{
@@ -64,7 +64,7 @@ public class Authenticator {
             jsonResponse.put("message", "ok");
             return new ResponseEntity(jsonResponse, HttpStatus.OK);
         }else{
-            jsonResponse.put("message", "invalid token");
+            jsonResponse.put("message", "ongeldige token");
             return new ResponseEntity(jsonResponse, HttpStatus.FORBIDDEN);
         }
     }
@@ -83,14 +83,14 @@ public class Authenticator {
         }
 
         if(httpStatus == HttpStatus.BAD_REQUEST){
-            jsonResponse.put("message", "error, invalid format.");
+            jsonResponse.put("message", "error, ongeldig format.");
         }
         else if(isValidToken(token)){
-            jsonResponse.put("message", "Success! You can not see this without a token");
+            jsonResponse.put("message", "Succes! Je kan dit niet zien zonder token");
             httpStatus = HttpStatus.OK;
         }
         else{
-            jsonResponse.put("message", "invalid token");
+            jsonResponse.put("message", "ongeldige token");
             httpStatus = HttpStatus.UNAUTHORIZED;
         }
         return new ResponseEntity<>(jsonResponse, httpStatus);
@@ -135,7 +135,6 @@ public class Authenticator {
                 return "";
             }
         }
-        System.out.println("it aint even a valid token..");
         return "";
     }
 

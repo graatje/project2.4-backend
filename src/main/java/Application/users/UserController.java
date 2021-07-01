@@ -23,18 +23,18 @@ public class UserController {
                                    @RequestParam("email") String email){
         JSONObject jsonResponse = new JSONObject();
         if(!this.isEmail(email)) {
-            jsonResponse.put("message", "e-mail is invalid!");
+            jsonResponse.put("message", "e-mail is ongeldig!");
             return new ResponseEntity(jsonResponse, HttpStatus.BAD_REQUEST);
 
         }else if(userRepository.findByName(username) != null){
-            jsonResponse.put("message", "user with this username already exists!");
+            jsonResponse.put("message", "gebruiker met deze naam bestaat al!");
             return new ResponseEntity(jsonResponse, HttpStatus.CONFLICT);
         }else if(userRepository.findByEmail(email) != null){
-            jsonResponse.put("message", "user with this email already exists!");
+            jsonResponse.put("message", "gebruiker met dit e-mail adres bestaat al!");
             return new ResponseEntity(jsonResponse, HttpStatus.CONFLICT);
         }else{
             userRepository.save(new User(username, password, email));
-            jsonResponse.put("message", "successfully registered!");
+            jsonResponse.put("message", "succesvol geregistreerd!");
             return new ResponseEntity(jsonResponse, HttpStatus.OK);
         }
     }
